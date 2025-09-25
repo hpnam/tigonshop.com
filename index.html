@@ -108,6 +108,19 @@
         display: none !important;
       }
     }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); /* Hỗ trợ trình duyệt Safari */
+      pointer-events: none;
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
@@ -267,12 +280,13 @@
 
       return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center font-sans">
-          <header className="w-full bg-gray-100 py-4 text-center">
+          <header className="w-full bg-gray-100 py-4 text-center relative">
             <img
               src="/logo.png"
               alt="Tigon Shop Logo"
               className="w-40 sm:w-48 h-auto mx-auto"
             />
+            <div className="overlay"></div>
           </header>
 
           <section className="py-2 px-4 w-full max-w-5xl relative">
@@ -484,9 +498,9 @@
                       </button>
                       <div className="text-gray-600 text-sm sm:text-base mt-4">
                         <p>
-                          <strong>Ghi chú:</strong> Tigon miễn phí ship cho các đơn hàng full tuần. Quý khách mua xuất ăn lẻ vui lòng liên hệ qua Hotline: <a href="tel:0848772227" className="text-blue-600 hover:underline">0848772227</a> hoặc Zalo bên dưới.
+                          <strong>Ghi chú:</strong> Tigon miễn phí ship cho các đơn hàng full tuần. Quý khách mua xuất ăn lẻ vui lòng liên hệ qua Hotline: <span className="relative inline-block"><a href="tel:0848772227" className="text-blue-600 hover:underline">0848772227</a><div className="overlay"></div></span> hoặc Zalo bên dưới.
                         </p>
-                        <div className="flex flex-row items-center justify-center mt-4 space-x-4">
+                        <div className="flex flex-row items-center justify-center mt-4 space-x-4 relative">
                           <img src="/avatar.jpg" alt="Tigon Shop Avatar" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full" />
                           <a href="https://zalo.me/0848772227" target="_blank" rel="noopener noreferrer" className="flex items-center bg-blue-600 text-white py-2 px-4 rounded-md text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 24" width="20" height="20" className="mr-2">
@@ -495,6 +509,7 @@
                             Nhắn tin
                           </a>
                           <img src="/zalo-qr.jpg" alt="Zalo QR Code" className="w-16 h-16 sm:w-24 sm:h-24 rounded-md" />
+                          <div className="overlay"></div>
                         </div>
                       </div>
                     </form>

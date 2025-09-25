@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tigon Shop - Healthy Lunch</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    function App() {
+      const [selectedMenu, setSelectedMenu] = React.useState(null);
+      const [formData, setFormData] = React.useState({
+        name: '',
+        phone: '',
+        email: '',
+        address: ''
+      });
+      const [submitted, setSubmitted] = React.useState(false);
+
+      React.useEffect(() => {
+        // Initialize Swiper
+        new Swiper('.swiper', {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            }
+          }
+        });
+      }, []);
+
+      const menus = [
+        {
+          id: 1,
+          name: "Thực đơn Tươi Sáng",
+          price: "350,000 VNĐ/tuần",
+          image: "https://via.placeholder.com/300x200?text=Menu+1",
+          weeklyMenu: {
+            "Thứ Hai": "Salad rau củ, ức gà nướng, sốt vinaigrette chanh",
+            "Thứ Ba": "Cơm gạo lứt, cá hồi áp chảo, măng tây",
+            "Thứ Tư": "Salad quinoa, đậu hũ nướng, sốt mè",
+            "Thứ Năm": "Gà nướng thảo mộc, khoai lang nướng, rau luộc",
+            "Thứ Sáu": "Salad cá ngừ, trứng luộc, sốt bơ"
+          }
+        },
+        {
+          id: 2,
+          name: "Thực đơn Năng Lượng",
+          price: "400,000 VNĐ/tuần",
+          image: "https://via.placeholder.com/300x200?text=Menu+2",
+          weeklyMenu: {
+            "Thứ Hai": "Cơm gạo lứt, bò nướng, rau củ hấp",
+            "Thứ Ba": "Salad tôm, bơ, hạt óc chó, sốt chanh dây",
+            "Thứ Tư": "Gà áp chảo, khoai tây nghiền, rau xanh",
+            "Thứ Năm": "Cá hồi nướng, quinoa, sốt mè rang",
+            "Thứ Sáu": "Salad ức gà, rau mầm, sốt dầu ô liu"
+          }
+        }
+      ];
+
+      const handleMenuSelect = (menuId) => {
+        setSelectedMenu(menuId);
+      };
+
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Form submitted:", { selectedMenu, ...formData });
+        setSubmitted(true);
+      };
+
+      return (
+        <div className="min-h-screen bg-green-50 flex flex-col items-center font-sans">
+          {/* Header */}
+          <header className="w-full bg-green-200 py-6 text-center">
+            <h1 className="text-3xl sm:text-4xl font-bold text-green-800">Tigon Shop</h1>
+            <p className="text-base sm:text-lg text-green-600">Bữa ăn trưa lành mạnh, giao tận nơi!</p>
+          </header>
+
+          {/* Menu Section */}
+          <section className="py-8 px-4 w-full max-w-5xl">
+            <h2 className="text-xl sm:text-2xl font-semibold text-green-800 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
+            <div className="swiper">
+              <div className="swiper-wrapper">
+                {menus.map(menu => (
+                  <div
+                    key={menu.id}
+                    className="swiper-slide"
+                  >
+                    <div
+                      className={`border rounded-lg p-4 sm:p-6 bg-white shadow-sm transition-all duration-300 transform ${
+                        selectedMenu === menu.id ? 'border-green-500 bg-green-100 shadow-lg' : 'border-gray-200'
+                      }`}
+                    >
+                      <img src={menu.image} alt={menu.name} className="w-full h-40 sm:h-48 object-cover rounded-md mb-4" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-green-800">{menu.name}</h3>
+                      <p className="text-green-600 font-bold mb-4">{menu.price}</p>
+                      <div className="text-gray-600">
+                        <h4 className="font-semibold text-gray-700 mb-2">Thực đơn theo ngày:</h4>
+                        <div className="grid grid-cols-1 gap-2">
+                          {Object.entries(menu.weeklyMenu).map(([day, dish]) => (
+                            <div
+                              key={day}
+                              className="bg-green-50 p-2 sm:p-3 rounded-md shadow-sm hover:bg-green-100 transition-colors"
+                            >
+                              <span className="font-semibold text-green-600 text-sm sm:text-base">{day}</span>
+                              <p className="text-gray-600 text-xs sm:text-sm">{dish}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleMenuSelect(menu.id)}
+                        className="mt-4 w-full bg-green-500 text-white py-2 rounded-md text-sm sm:text-base hover:bg-green-600 transition"
+                      >
+                        Chọn
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="swiper-pagination mt-4"></div>
+            </div>
+          </section>
+
+          {/* Contact Form */}
+          {selectedMenu && (
+            <section className="py-8 px-4 w-full max-w-md sm:max-w-lg">
+              <h2 className="text-xl sm:text-2xl font-semibold text-green-800 mb-6 text-center">Thông Tin Đặt Hàng</h2>
+              {submitted ? (
+                <div className="text-center text-green-600">
+                  <p className="text-base sm:text-lg">Cảm ơn bạn đã đặt hàng! Chúng tôi sẽ liên hệ sớm.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-gray-700 text-sm sm:text-base">Họ và Tên</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 text-sm sm:text-base">Số Điện Thoại</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 text-sm sm:text-base">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 text-sm sm:text-base">Địa Chỉ Giao Hàng</label>
+                    <textarea
+                      name="address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      rows="4"
+                      required
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-green-500 text-white py-2 rounded-md text-sm sm:text-base hover:bg-green-600 transition"
+                  >
+                    Gửi Đặt Hàng
+                  </button>
+                </form>
+              )}
+            </section>
+          )}
+
+          {/* Footer */}
+          <footer className="w-full bg-green-200 py-4 text-center text-green-800">
+            <p className="text-sm sm:text-base">&copy; 2025 Tigon Shop. All rights reserved.</p>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

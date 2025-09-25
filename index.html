@@ -108,7 +108,6 @@
       const [formData, setFormData] = React.useState({
         name: '',
         phone: '',
-        email: '',
         address: '',
       });
       const [submitted, setSubmitted] = React.useState(false);
@@ -176,13 +175,9 @@
 
       const handleSubmit = (e) => {
         e.preventDefault();
-        const { name, phone, email, address } = formData;
-        if (!name || !phone || !email || !address) {
+        const { name, phone, address } = formData;
+        if (!name || !phone || !address) {
           alert('Vui lòng điền đầy đủ thông tin.');
-          return;
-        }
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-          alert('Email không hợp lệ.');
           return;
         }
         if (!/^\d{10,11}$/.test(phone)) {
@@ -203,7 +198,7 @@
             />
           </header>
 
-          <section className="py-8 px-4 w-full max-w-5xl relative">
+          <section className="py-2 px-4 w-full max-w-5xl relative">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
             <div className="swiper">
               <div className="swiper-wrapper">
@@ -319,7 +314,7 @@
                     onClick={() => {
                       setSubmitted(false);
                       setSelectedMenu(null);
-                      setFormData({ name: '', phone: '', email: '', address: '' });
+                      setFormData({ name: '', phone: '', address: '' });
                     }}
                     className="mt-4 bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
                   >
@@ -350,18 +345,6 @@
                       className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
                       aria-label="Số Điện Thoại"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 text-sm sm:text-base">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
-                      required
-                      aria-label="Email"
                     />
                   </div>
                   <div>

@@ -156,28 +156,28 @@
       const menus = [
         {
           id: 1,
-          name: "Thực Đơn Huyền Nguyệt Tiên Tử",
+          name: "Thực Đơn Huyền Nguyệt",
           price: "259,000 VNĐ (Xuất lớn: 359,000 VNĐ)",
           image: "https://via.placeholder.com/300x200?text=Menu+1",
           weeklyMenu: {
-            "Thứ Hai": "Ánh Trăng Cách Thủy, Tinh Hoa Ngọc Cốt, Sương Tiên Lãng Đãng",
-            "Thứ Ba": "Cửu Thiên Huyền Hỏa, Long Tủy Hầm Ngũ Hành, Vụ Tình Phiêu Diêu",
-            "Thứ Tư": "Hàn Băng Tử Liên, Tâm Sen Tuyết Vực, Cảm Tình Ủ Muối",
-            "Thứ Năm": "Phượng Hoàng Niết Bàn, Huyết Đan Tinh Tủy, Mộng Huyễn Thảo Vân",
-            "Thứ Sáu": "Tử Hà Tiên Tử, Linh Lung Bảo Châu, Vân Hải Tâm Hương",
+            "Thứ Hai": "Tình đầu Cách Thủy, Súp Ngọc Cốt, Rau Sương Tiên",
+            "Thứ Ba": "Huyền Hỏa sốt cà, Bò Ngũ Hành, Salad Vụ Tình",
+            "Thứ Tư": "Tiểu tam ủ muối, Súp Sen Tuyết, Cá Tử Liên",
+            "Thứ Năm": "Niết Bàn nướng, Súp Đan Tinh, Rau Thảo Vân",
+            "Thứ Sáu": "Tôm Linh Lung, Cá Tử Hà, Salad Vân Hải",
           },
         },
         {
           id: 2,
-          name: "Thực Đơn Vô Thượng Thiên Tôn",
+          name: "Thực Đơn Thiên Tôn",
           price: "259,000 VNĐ (Xuất lớn: 359,000 VNĐ)",
           image: "https://via.placeholder.com/300x200?text=Menu+2",
           weeklyMenu: {
-            "Thứ Hai": "Huyền Thiên Đế Tử, Ngũ Sắc Thần Quang, Huyết Phượng Linh Hương",
-            "Thứ Ba": "Tinh Hà Lưu Chuyển, Tâm Ma Hóa Ngọc, Thiên Cốt Huyền Sương",
-            "Thứ Tư": "Vạn Kiếm Quy Tông, Bích Hải Triều Sinh, Huyền Âm Tử Tâm",
-            "Thứ Năm": "Cửu Long Phi Thiên, Hỏa Vân Tinh Tủy, Linh Hư Thần Dược",
-            "Thứ Sáu": "Tử Vi Đế Tinh, Vô Cực Huyền Liên, Thiên Hương Mộng Cảnh",
+            "Thứ Hai": "Huyền Thiên hấp, Súp Ngũ Sắc, Rau Linh Hương",
+            "Thứ Ba": "Tinh Hà sốt tiêu, Súp Thiên Cốt, Salad Ma Ngọc",
+            "Thứ Tư": "Quy Tông nướng, Cá Bích Hải, Rau Huyền Âm",
+            "Thứ Năm": "Phi Thiên hầm, Súp Hỏa Vân, Rau Linh Hư",
+            "Thứ Sáu": "Tử Vi luộc, Súp Huyền Liên, Salad Thiên Hương",
           },
         },
       ];
@@ -257,7 +257,7 @@
           setSubmitted(true);
         } catch (error) {
           console.error('Lỗi xử lý form:', error);
-          alert('Có lỗi xảy ra khi xử lý form. Vui lòng kiểm tra môi trường chạy hoặc console.');
+          alert('Có lỗi khi gửi form. Vui lòng chạy website trên server local hoặc thêm quyền "allow-forms" nếu dùng iframe.');
         }
       };
 

@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tigon Shop - Healthy Lunch</title>
+  <meta name="description" content="Đặt bữa ăn trưa lành mạnh tại Tigon Shop">
+  <meta name="keywords" content="healthy lunch, tigon shop, thực đơn lành mạnh">
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
@@ -25,7 +27,6 @@
       const [submitted, setSubmitted] = React.useState(false);
 
       React.useEffect(() => {
-        // Initialize Swiper
         new Swiper('.swiper', {
           slidesPerView: 1,
           spaceBetween: 16,
@@ -87,16 +88,19 @@
       };
 
       return (
-        <div className="min-h-screen bg-green-50 flex flex-col items-center font-sans">
+        <div className="min-h-screen bg-white flex flex-col items-center font-sans">
           {/* Header */}
-          <header className="w-full bg-green-200 py-6 text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold text-green-800">Tigon Shop</h1>
-            <p className="text-base sm:text-lg text-green-600">Bữa ăn trưa lành mạnh, giao tận nơi!</p>
+          <header className="w-full bg-gray-100 py-4 text-center">
+            <img
+              src="https://via.placeholder.com/150x50?text=Logo"
+              alt="Tigon Shop Logo"
+              className="w-40 sm:w-48 h-auto mx-auto"
+            />
           </header>
 
           {/* Menu Section */}
           <section className="py-8 px-4 w-full max-w-5xl">
-            <h2 className="text-xl sm:text-2xl font-semibold text-green-800 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
             <div className="swiper">
               <div className="swiper-wrapper">
                 {menus.map(menu => (
@@ -106,21 +110,21 @@
                   >
                     <div
                       className={`border rounded-lg p-4 sm:p-6 bg-white shadow-sm transition-all duration-300 transform ${
-                        selectedMenu === menu.id ? 'border-green-500 bg-green-100 shadow-lg' : 'border-gray-200'
+                        selectedMenu === menu.id ? 'border-gray-900 bg-gray-50 shadow-lg' : 'border-gray-200'
                       }`}
                     >
                       <img src={menu.image} alt={menu.name} className="w-full h-40 sm:h-48 object-cover rounded-md mb-4" />
-                      <h3 className="text-lg sm:text-xl font-semibold text-green-800">{menu.name}</h3>
-                      <p className="text-green-600 font-bold mb-4">{menu.price}</p>
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{menu.name}</h3>
+                      <p className="text-gray-900 font-bold mb-4">{menu.price}</p>
                       <div className="text-gray-600">
                         <h4 className="font-semibold text-gray-700 mb-2">Thực đơn theo ngày:</h4>
                         <div className="grid grid-cols-1 gap-2">
                           {Object.entries(menu.weeklyMenu).map(([day, dish]) => (
                             <div
                               key={day}
-                              className="bg-green-50 p-2 sm:p-3 rounded-md shadow-sm hover:bg-green-100 transition-colors"
+                              className="bg-gray-50 p-2 sm:p-3 rounded-md shadow-sm hover:bg-gray-100 transition-colors"
                             >
-                              <span className="font-semibold text-green-600 text-sm sm:text-base">{day}</span>
+                              <span className="font-semibold text-gray-900 text-sm sm:text-base">{day}</span>
                               <p className="text-gray-600 text-xs sm:text-sm">{dish}</p>
                             </div>
                           ))}
@@ -128,7 +132,7 @@
                       </div>
                       <button
                         onClick={() => handleMenuSelect(menu.id)}
-                        className="mt-4 w-full bg-green-500 text-white py-2 rounded-md text-sm sm:text-base hover:bg-green-600 transition"
+                        className="mt-4 w-full bg-gray-900 text-white py-2 rounded-md text-sm sm:text-base hover:bg-gray-800 transition"
                       >
                         Chọn
                       </button>
@@ -143,9 +147,9 @@
           {/* Contact Form */}
           {selectedMenu && (
             <section className="py-8 px-4 w-full max-w-md sm:max-w-lg">
-              <h2 className="text-xl sm:text-2xl font-semibold text-green-800 mb-6 text-center">Thông Tin Đặt Hàng</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Thông Tin Đặt Hàng</h2>
               {submitted ? (
-                <div className="text-center text-green-600">
+                <div className="text-center text-gray-600">
                   <p className="text-base sm:text-lg">Cảm ơn bạn đã đặt hàng! Chúng tôi sẽ liên hệ sớm.</p>
                 </div>
               ) : (
@@ -157,7 +161,7 @@
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
                     />
                   </div>
@@ -168,7 +172,7 @@
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
                     />
                   </div>
@@ -179,7 +183,7 @@
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
                     />
                   </div>
@@ -189,14 +193,14 @@
                       name="address"
                       value={formData.address}
                       onChange={handleInputChange}
-                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       rows="4"
                       required
                     ></textarea>
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-green-500 text-white py-2 rounded-md text-sm sm:text-base hover:bg-green-600 transition"
+                    className="w-full bg-gray-900 text-white py-2 rounded-md text-sm sm:text-base hover:bg-gray-800 transition"
                   >
                     Gửi Đặt Hàng
                   </button>
@@ -206,7 +210,7 @@
           )}
 
           {/* Footer */}
-          <footer className="w-full bg-green-200 py-4 text-center text-green-800">
+          <footer className="w-full bg-gray-100 py-4 text-center text-gray-900">
             <p className="text-sm sm:text-base">&copy; 2025 Tigon Shop. All rights reserved.</p>
           </footer>
         </div>

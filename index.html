@@ -30,14 +30,28 @@
       margin: -47% 0 0 -47%;
     }
 
-    .black { 
-      background: black;  
-      animation: rotate 10s infinite linear; 
+    .black {
+      background: black;
+    }
+
+    /* Apply clockwise rotation to odd slides */
+    .swiper-slide:nth-child(odd) .black {
+      animation: rotate 10s infinite linear;
+    }
+
+    /* Apply counter-clockwise rotation to even slides */
+    .swiper-slide:nth-child(even) .black {
+      animation: rotateReverse 10s infinite linear;
     }
 
     @keyframes rotate {
       0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }  
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateReverse {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
     }
 
     .swiper-horizontal>.swiper-pagination-bullets, 
@@ -53,17 +67,17 @@
 
     .swiper-button-prev,
     .swiper-button-next {
-      color: #1f2937; /* Tailwind gray-900 */
+      color: #1f2937;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
       width: 32px;
       height: 32px;
-      display: none; /* Ẩn mặc định */
+      display: none;
       align-items: center;
       justify-content: center;
       transition: background-color 0.3s;
-      position: static; /* Loại bỏ định vị mặc định của Swiper */
-      margin: 0 20px; /* Khoảng cách giữa nút và chấm điều hướng */
+      position: static;
+      margin: 0 20px;
     }
 
     .swiper-button-prev:hover,
@@ -73,10 +87,9 @@
 
     .swiper-button-prev::after,
     .swiper-button-next::after {
-      font-size: 16px; /* Kích thước mũi tên nhỏ hơn trên mobile */
+      font-size: 16px;
     }
 
-    /* Hiển thị nút trên mobile (dưới 640px) */
     @media (max-width: 639px) {
       .swiper-button-prev,
       .swiper-button-next {
@@ -91,7 +104,6 @@
       }
     }
 
-    /* Ẩn nút trên màn hình lớn hơn 640px */
     @media (min-width: 640px) {
       .swiper-button-prev,
       .swiper-button-next {
@@ -143,28 +155,28 @@
       const menus = [
         {
           id: 1,
-          name: "Thực đơn Tươi Sáng",
+          name: "Thực Đơn Huyền Nguyệt Tiên Tử",
           price: "259,000 VNĐ (Xuất lớn: 359,000 VNĐ)",
           image: "https://via.placeholder.com/300x200?text=Menu+1",
           weeklyMenu: {
-            "Thứ Hai": "Salad rau củ, ức gà nướng, sốt vinaigrette chanh",
-            "Thứ Ba": "Cơm gạo lứt, cá hồi áp chảo, măng tây",
-            "Thứ Tư": "Salad quinoa, đậu hũ nướng, sốt mè",
-            "Thứ Năm": "Gà nướng thảo mộc, khoai lang nướng, rau luộc",
-            "Thứ Sáu": "Salad cá ngừ, trứng luộc, sốt bơ",
+            "Thứ Hai": "Ánh Trăng Cách Thủy, Tinh Hoa Ngọc Cốt, Sương Tiên Lãng Đãng",
+            "Thứ Ba": "Cửu Thiên Huyền Hỏa, Long Tủy Hầm Ngũ Hành, Vụ Tình Phiêu Diêu",
+            "Thứ Tư": "Hàn Băng Tử Liên, Tâm Sen Tuyết Vực, Cảm Tình Ủ Muối",
+            "Thứ Năm": "Phượng Hoàng Niết Bàn, Huyết Đan Tinh Tủy, Mộng Huyễn Thảo Vân",
+            "Thứ Sáu": "Tử Hà Tiên Tử, Linh Lung Bảo Châu, Vân Hải Tâm Hương",
           },
         },
         {
           id: 2,
-          name: "Thực đơn Năng Lượng",
+          name: "Thực Đơn Vô Thượng Thiên Tôn",
           price: "259,000 VNĐ (Xuất lớn: 359,000 VNĐ)",
           image: "https://via.placeholder.com/300x200?text=Menu+2",
           weeklyMenu: {
-            "Thứ Hai": "Cơm gạo lứt, bò nướng, rau củ hấp",
-            "Thứ Ba": "Salad tôm, bơ, hạt óc chó, sốt chanh dây",
-            "Thứ Tư": "Gà áp chảo, khoai tây nghiền, rau xanh",
-            "Thứ Năm": "Cá hồi nướng, quinoa, sốt mè rang",
-            "Thứ Sáu": "Salad ức gà, rau mầm, sốt dầu ô liu",
+            "Thứ Hai": "Huyền Thiên Đế Tử, Ngũ Sắc Thần Quang, Huyết Phượng Linh Hương",
+            "Thứ Ba": "Tinh Hà Lưu Chuyển, Tâm Ma Hóa Ngọc, Thiên Cốt Huyền Sương",
+            "Thứ Tư": "Vạn Kiếm Quy Tông, Bích Hải Triều Sinh, Huyền Âm Tử Tâm",
+            "Thứ Năm": "Cửu Long Phi Thiên, Hỏa Vân Tinh Tủy, Linh Hư Thần Dược",
+            "Thứ Sáu": "Tử Vi Đế Tinh, Vô Cực Huyền Liên, Thiên Hương Mộng Cảnh",
           },
         },
       ];
@@ -211,7 +223,7 @@
           </header>
 
           <section className="py-2 px-4 w-full max-w-5xl relative">
-            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Chọn Thực Đơn Cho Tuần Sau</h2>
             <div className="swiper">
               <div className="swiper-wrapper">
                 {menus.map(menu => (

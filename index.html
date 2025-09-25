@@ -34,12 +34,10 @@
       background: black;
     }
 
-    /* Apply clockwise rotation to odd slides */
     .swiper-slide:nth-child(odd) .black {
       animation: rotate 10s infinite linear;
     }
 
-    /* Apply counter-clockwise rotation to even slides */
     .swiper-slide:nth-child(even) .black {
       animation: rotateReverse 10s infinite linear;
     }
@@ -129,6 +127,9 @@
       });
       const [submitted, setSubmitted] = React.useState(false);
 
+      const BOT_TOKEN = '8245413088:AAFWfeJ7FF0J4gbkfCQ_zQMkkG_-F8R5d60';
+      const CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Thay bằng chat ID thực tế
+
       React.useEffect(() => {
         if (typeof Swiper !== 'undefined') {
           new Swiper('.swiper', {
@@ -197,7 +198,50 @@
         }
       };
 
-      const handleSubmit = (e) => {
+      const sendToTelegram = async (orderData) => {
+        const basePrice = 259000;
+        const extrasPrice = (formData.extras.bacXiu ? 27000 : 0) + (formData.extras.pheSua ? 27000 : 0) + (formData.extras.pheDen ? 22000 : 0);
+        const totalPrice = basePrice + extrasPrice;
+
+        const selectedMenuObj = menus.find(m => m.id === selectedMenu);
+        let weeklyDetails = Object.entries(selectedMenuObj.weeklyMenu)
+          .map(([day, dish]) => `${day}: ${dish}`)
+          .join('\n');
+
+        const message = `🆕 *ĐƠN HÀNG MỚI TỪ TIGON SHOP*\n\n` +
+          `👤 *Khách hàng:* ${orderData.name}\n` +
+          `📞 *SĐT:* ${orderData.phone}\n` +
+          `📍 *Địa chỉ:* ${orderData.address}\n\n` +
+          `🍽️ *Thực đơn chọn:* ${selectedMenuObj.name}\n` +
+          `💰 *Giá cơ bản:* 259,000 VNĐ\n` +
+          `📋 *Chi tiết tuần:*\n${weeklyDetails}\n\n` +
+          `☕ *Extras:*\n` +
+          `${formData.extras.bacXiu ? '✅ Bạc xỉu (+27,000 VNĐ)\n' : ''}` +
+          `${formData.extras.pheSua ? '✅ Phê sữa (+27,000 VNĐ)\n' : ''}` +
+          `${formData.extras.pheDen ? '✅ Phê đen (+22,000 VNĐ)\n' : ''}` +
+          (Object.values(formData.extras).some(v => v) ? '' : '❌ Không chọn\n') +
+          `💵 *Tổng tiền:* ${totalPrice.toLocaleString()} VNĐ\n\n` +
+          `⏰ *Thời gian đặt:* ${new Date().toLocaleString('vi-VN')}`;
+
+        try {
+          const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: CHAT_ID,
+              text: message,
+              parse_mode: 'Markdown'
+            })
+          });
+          if (!response.ok) throw new Error(`Gửi thất bại: ${response.statusText}`);
+          console.log('Đã gửi Telegram:', orderData);
+        } catch (error) {
+          console.error('Lỗi gửi Telegram:', error);
+          alert('Gửi đơn hàng thành công, nhưng không thể thông báo qua Telegram. Vui lòng kiểm tra console.');
+        }
+      };
+
+      const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, phone, address } = formData;
         if (!name || !phone || !address) {
@@ -208,8 +252,13 @@
           alert('Số điện thoại không hợp lệ.');
           return;
         }
-        console.log('Form submitted:', { selectedMenu, ...formData });
-        setSubmitted(true);
+        try {
+          await sendToTelegram({ ...formData, selectedMenu });
+          setSubmitted(true);
+        } catch (error) {
+          console.error('Lỗi xử lý form:', error);
+          alert('Có lỗi xảy ra khi xử lý form. Vui lòng kiểm tra môi trường chạy hoặc console.');
+        }
       };
 
       return (

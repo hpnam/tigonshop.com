@@ -128,7 +128,7 @@
       const [submitted, setSubmitted] = React.useState(false);
 
       const BOT_TOKEN = '8245413088:AAFWfeJ7FF0J4gbkfCQ_zQMkkG_-F8R5d60';
-      const CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Thay bằng chat ID thực tế
+      const CHAT_ID = '2068082970'; // CHAT_ID của @hpnamco
 
       React.useEffect(() => {
         if (typeof Swiper !== 'undefined') {
@@ -224,20 +224,24 @@
           `⏰ *Thời gian đặt:* ${new Date().toLocaleString('vi-VN')}`;
 
         try {
-          const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          const response = await fetch('http://localhost:3000/sendTelegram', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              chat_id: CHAT_ID,
-              text: message,
-              parse_mode: 'Markdown'
+              botToken: BOT_TOKEN,
+              chatId: CHAT_ID,
+              message: message
             })
           });
-          if (!response.ok) throw new Error(`Gửi thất bại: ${response.statusText}`);
-          console.log('Đã gửi Telegram:', orderData);
+          const responseData = await response.json();
+          if (!response.ok) {
+            throw new Error(`Gửi thất bại: ${responseData.error || response.statusText}`);
+          }
+          console.log('Đã gửi Telegram thành công:', responseData);
+          alert('Đơn hàng đã gửi thành công qua Telegram!');
         } catch (error) {
           console.error('Lỗi gửi Telegram:', error);
-          alert('Gửi đơn hàng thành công, nhưng không thể thông báo qua Telegram. Vui lòng kiểm tra console.');
+          alert(`Đơn hàng lưu tạm, nhưng lỗi gửi Telegram: ${error.message}. Vui lòng thử lại hoặc liên hệ hỗ trợ.`);
         }
       };
 
@@ -257,7 +261,7 @@
           setSubmitted(true);
         } catch (error) {
           console.error('Lỗi xử lý form:', error);
-          alert('Có lỗi khi gửi form. Vui lòng chạy website trên server local hoặc thêm quyền "allow-forms" nếu dùng iframe.');
+          alert('Có lỗi khi gửi form. Vui lòng kiểm tra console.');
         }
       };
 

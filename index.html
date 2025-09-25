@@ -16,31 +16,29 @@
     .co-container {
       height: 100px;
       width: 100px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin: -50px 0 0 -50px;
+      position: relative;
+      margin: 0 auto;
     }
 
-    .square {
-      height: 94%;
-      width: 94%;
-      background: white;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin: -47% 0 0 -47%;
-    }
+    .square{
+  height: 94%;
+  width: 94%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -47% 0 0 -47%;
+}
 
-    .black { 
-      background: black;  
-      animation: rotate 10s infinite linear; 
-    }
+.black{ 
+  background: black;  
+  animation: rotate 10s infinite linear; 
+}
 
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }  
-    }
+@keyframes rotate{
+  0%{ transform: rotate(0deg); }
+    100%{ transform: rotate(360deg); }  
+}
   </style>
 </head>
 <body>
@@ -52,25 +50,27 @@
         name: '',
         phone: '',
         email: '',
-        address: ''
+        address: '',
       });
       const [submitted, setSubmitted] = React.useState(false);
 
       React.useEffect(() => {
-        new Swiper('.swiper', {
-          slidesPerView: 1,
-          spaceBetween: 16,
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-          breakpoints: {
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 24,
-            }
-          }
-        });
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.swiper', {
+            slidesPerView: 1,
+            spaceBetween: 16,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            breakpoints: {
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 24,
+              },
+            },
+          });
+        }
       }, []);
 
       const menus = [
@@ -84,8 +84,8 @@
             "Thứ Ba": "Cơm gạo lứt, cá hồi áp chảo, măng tây",
             "Thứ Tư": "Salad quinoa, đậu hũ nướng, sốt mè",
             "Thứ Năm": "Gà nướng thảo mộc, khoai lang nướng, rau luộc",
-            "Thứ Sáu": "Salad cá ngừ, trứng luộc, sốt bơ"
-          }
+            "Thứ Sáu": "Salad cá ngừ, trứng luộc, sốt bơ",
+          },
         },
         {
           id: 2,
@@ -97,9 +97,9 @@
             "Thứ Ba": "Salad tôm, bơ, hạt óc chó, sốt chanh dây",
             "Thứ Tư": "Gà áp chảo, khoai tây nghiền, rau xanh",
             "Thứ Năm": "Cá hồi nướng, quinoa, sốt mè rang",
-            "Thứ Sáu": "Salad ức gà, rau mầm, sốt dầu ô liu"
-          }
-        }
+            "Thứ Sáu": "Salad ức gà, rau mầm, sốt dầu ô liu",
+          },
+        },
       ];
 
       const handleMenuSelect = (menuId) => {
@@ -113,91 +113,102 @@
 
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form submitted:", { selectedMenu, ...formData });
+        const { name, phone, email, address } = formData;
+        if (!name || !phone || !email || !address) {
+          alert('Vui lòng điền đầy đủ thông tin.');
+          return;
+        }
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+          alert('Email không hợp lệ.');
+          return;
+        }
+        if (!/^\d{10,11}$/.test(phone)) {
+          alert('Số điện thoại không hợp lệ.');
+          return;
+        }
+        console.log('Form submitted:', { selectedMenu, ...formData });
         setSubmitted(true);
       };
 
       return (
         <div className="min-h-screen bg-white flex flex-col items-center font-sans">
-          {/* Header */}
           <header className="w-full bg-gray-100 py-4 text-center">
             <img
-              src="/logo.png"
+              src="https://via.placeholder.com/150?text=Logo"
               alt="Tigon Shop Logo"
               className="w-40 sm:w-48 h-auto mx-auto"
             />
           </header>
 
-          {/* Menu Section */}
           <section className="py-8 px-4 w-full max-w-5xl">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
             <div className="swiper">
               <div className="swiper-wrapper">
                 {menus.map(menu => (
-                  <div
-                    key={menu.id}
-                    className="swiper-slide"
-                  >
+                  <div key={menu.id} className="swiper-slide">
                     <div
                       className={`border rounded-lg p-4 sm:p-6 bg-white shadow-sm transition-all duration-300 transform ${
                         selectedMenu === menu.id ? 'border-gray-900 bg-gray-50 shadow-lg' : 'border-gray-200'
                       }`}
                     >
-                      <div class="co-container">
+                      <div className="co-container">
                         <div class="square black">
-                          <div class="square">
-                            <div class="square black">
-                              <div class="square">
-                                <div class="square black">
-                                  <div class="square">
-                                    <div class="square black">
-                                      <div class="square">
-                                        <div class="square black">
-                                          <div class="square">
-                                            <div class="square black">
-                                              <div class="square">
-                                                <div class="square black">
-                                                  <div class="square">
-                                                    <div class="square black">
-                                                      <div class="square">
-                                                        <div class="square black">
-                                                          <div class="square">
-                                                            <div class="square black">
-                                                              <div class="square">
-                                                                <div class="square black">
-                                                                  <div class="square">
-                                                                    <div class="square black">
-                                                                      <div class="square">
-                                                                        <div class="square black">
-                                                                          <div class="square">
-                                                                            <div class="square black">
-                                                                              <p style="color:white">$</p>
-                                                                            </div>
-                                                                          </div>
-                                                                        </div>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        <div class="square">
+                        <div class="square black">
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
                         </div>
                       </div>
                       <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{menu.name}</h3>
@@ -219,6 +230,7 @@
                       <button
                         onClick={() => handleMenuSelect(menu.id)}
                         className="mt-4 w-full bg-gray-900 text-white py-2 rounded-md text-sm sm:text-base hover:bg-gray-800 transition"
+                        aria-label={`Chọn ${menu.name}`}
                       >
                         Chọn
                       </button>
@@ -230,13 +242,22 @@
             </div>
           </section>
 
-          {/* Contact Form */}
           {selectedMenu && (
             <section className="py-8 px-4 w-full max-w-md sm:max-w-lg">
               <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Thông Tin Đặt Hàng</h2>
               {submitted ? (
                 <div className="text-center text-gray-600">
                   <p className="text-base sm:text-lg">Cảm ơn bạn đã đặt hàng! Chúng tôi sẽ liên hệ sớm.</p>
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setSelectedMenu(null);
+                      setFormData({ name: '', phone: '', email: '', address: '' });
+                    }}
+                    className="mt-4 bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
+                  >
+                    Đặt lại
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -249,6 +270,7 @@
                       onChange={handleInputChange}
                       className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
+                      aria-label="Họ và Tên"
                     />
                   </div>
                   <div>
@@ -260,6 +282,7 @@
                       onChange={handleInputChange}
                       className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
+                      aria-label="Số Điện Thoại"
                     />
                   </div>
                   <div>
@@ -271,6 +294,7 @@
                       onChange={handleInputChange}
                       className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       required
+                      aria-label="Email"
                     />
                   </div>
                   <div>
@@ -282,11 +306,13 @@
                       className="w-full border rounded-md p-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-gray-900"
                       rows="4"
                       required
+                      aria-label="Địa Chỉ Giao Hàng"
                     ></textarea>
                   </div>
                   <button
                     type="submit"
                     className="w-full bg-gray-900 text-white py-2 rounded-md text-sm sm:text-base hover:bg-gray-800 transition"
+                    aria-label="Gửi Đặt Hàng"
                   >
                     Gửi Đặt Hàng
                   </button>
@@ -295,7 +321,6 @@
             </section>
           )}
 
-          {/* Footer */}
           <footer className="w-full bg-gray-100 py-4 text-center text-gray-900">
             <p className="text-sm sm:text-base">&copy; 2025 Tigon Shop. All rights reserved.</p>
           </footer>

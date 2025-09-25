@@ -20,27 +20,83 @@
       margin: 0 auto 20px;
     }
 
-    .square{
-  height: 94%;
-  width: 94%;
-  background: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -47% 0 0 -47%;
-}
+    .square {
+      height: 94%;
+      width: 94%;
+      background: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -47% 0 0 -47%;
+    }
 
-.black{ 
-  background: black;  
-  animation: rotate 10s infinite linear; 
-}
+    .black { 
+      background: black;  
+      animation: rotate 10s infinite linear; 
+    }
 
-@keyframes rotate{
-  0%{ transform: rotate(0deg); }
-    100%{ transform: rotate(360deg); }  
-}
-    .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
-      bottom: var(--swiper-pagination-bottom,0px);
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }  
+    }
+
+    .swiper-horizontal>.swiper-pagination-bullets, 
+    .swiper-pagination-bullets.swiper-pagination-horizontal, 
+    .swiper-pagination-custom, 
+    .swiper-pagination-fraction {
+      bottom: var(--swiper-pagination-bottom, 11px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #1f2937; /* Tailwind gray-900 */
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: none; /* Ẩn mặc định */
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+      position: static; /* Loại bỏ định vị mặc định của Swiper */
+      margin: 0 20px; /* Khoảng cách giữa nút và chấm điều hướng */
+    }
+
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      font-size: 16px; /* Kích thước mũi tên nhỏ hơn trên mobile */
+    }
+
+    /* Hiển thị nút trên mobile (dưới 640px) */
+    @media (max-width: 639px) {
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: flex;
+      }
+
+      .swiper-navigation-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 16px;
+      }
+    }
+
+    /* Ẩn nút trên màn hình lớn hơn 640px */
+    @media (min-width: 640px) {
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -65,6 +121,10 @@
             pagination: {
               el: '.swiper-pagination',
               clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
             },
             breakpoints: {
               640: {
@@ -143,7 +203,7 @@
             />
           </header>
 
-          <section className="py-8 px-4 w-full max-w-5xl">
+          <section className="py-8 px-4 w-full max-w-5xl relative">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 text-center">Chọn Thực Đơn Tuần Này</h2>
             <div className="swiper">
               <div className="swiper-wrapper">
@@ -155,69 +215,69 @@
                       }`}
                     >
                       <div className="co-container">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        <div class="square">
-                        <div class="square black">
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
+                        <div className="square black">
+                          <div className="square">
+                            <div className="square black">
+                              <div className="square">
+                                <div className="square black">
+                                  <div className="square">
+                                    <div className="square black">
+                                      <div className="square">
+                                        <div className="square black">
+                                          <div className="square">
+                                            <div className="square black">
+                                              <div className="square">
+                                                <div className="square black">
+                                                  <div className="square">
+                                                    <div className="square black">
+                                                      <div className="square">
+                                                        <div className="square black">
+                                                          <div className="square">
+                                                            <div className="square black">
+                                                              <div className="square">
+                                                                <div className="square black">
+                                                                  <div className="square">
+                                                                    <div className="square black">
+                                                                      <div className="square">
+                                                                        <div className="square black">
+                                                                          <div className="square">
+                                                                            <div className="square black">
+                                                                              <div className="square">
+                                                                                <div className="square black">
+                                                                                  <div className="square"></div>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <h3 className="text-lg sm:text-xl font-semibold text-gray-900 text-center">{menu.name}</h3>
                       <p className="text-gray-900 font-bold mb-4 text-center">{menu.price}</p>
                       <div className="text-gray-600">
-                       
                         <div className="grid grid-cols-1 gap-2">
                           {Object.entries(menu.weeklyMenu).map(([day, dish]) => (
                             <div
@@ -241,7 +301,11 @@
                   </div>
                 ))}
               </div>
-              <div className="swiper-pagination mt-4"></div>
+              <div className="swiper-navigation-container">
+                <div className="swiper-button-prev"></div>
+                <div className="swiper-pagination"></div>
+                <div className="swiper-button-next"></div>
+              </div>
             </div>
           </section>
 
